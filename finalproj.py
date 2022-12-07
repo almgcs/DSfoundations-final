@@ -915,10 +915,10 @@ with tab3:
 
     with st.expander("Random Forest"):
         with st.form("key6"):
-            numEstimators = st.number_input("Input number of estimators", 60, 130, value=124, step=1, key="numEstimators")
-            max_depth_rf = st.number_input("Input max_depth parameter", min_value=1, max_value=10, value=9, step=1, key="md_rf")
+            numEstimators = st.number_input("Input number of estimators", 60, 130, step=1, key="numEstimators")
+            max_depth_rf = st.number_input("Input max_depth parameter", min_value=1, max_value=10, step=1, key="md_rf")
             
-            clf2 = RandomForestClassifier(max_depth=max_depth_rf, n_estimators=numEstimators, random_state=0)
+            clf2 = RandomForestClassifier(max_depth=int(max_depth_rf), n_estimators=int(numEstimators), random_state=0)
             clf2.fit(X_train, Y_train)
 
             Y_predtrain2 = clf2.predict(X_train)
@@ -977,7 +977,7 @@ with tab3:
             crit = st.selectbox("Select criterion", ["entropy","gini","log_loss"])
             max_depth_dtree = st.number_input("Input max_depth parameter", min_value=1, max_value=30, value=12, step=1, key="md_dtree")
 
-            clf3 = DecisionTreeClassifier(criterion=crit, max_depth=max_depth_dtree, random_state=0)
+            clf3 = DecisionTreeClassifier(criterion=crit, max_depth=int(max_depth_dtree), random_state=0)
             clf3.fit(X_train, Y_train)
 
             Y_predtrain3 = clf3.predict(X_train)
@@ -1035,7 +1035,7 @@ with tab3:
         with st.form("key8"):
             nn = st.number_input("Input the number of nearest neighbors", min_value=1, max_value=15, value=9, step=2, key="knn")
 
-            clf4 = KNeighborsClassifier(n_neighbors=nn)
+            clf4 = KNeighborsClassifier(n_neighbors=int(nn))
             clf4.fit(X_train, Y_train)
 
             Y_predtrain4 = clf4.predict(X_train)
@@ -1093,7 +1093,7 @@ with tab3:
         with st.form("key9"):
             max_iter_nn = st.number_input("Input maximum number of iterations", 10000, 12000, value=10741, step=1, key="max_iter_nn")
 
-            clf5 = MLPClassifier(max_iter=max_iter_nn, random_state=0)
+            clf5 = MLPClassifier(max_iter=int(max_iter_nn), random_state=0)
             clf5.fit(X_train_nn, Y_train_nn)
 
             Y_predtrain5 = clf5.predict(X_train_nn)
@@ -1118,7 +1118,7 @@ with tab3:
             st.write("The recall score is {}%.".format(recall_score(Y_test_nn, Y_predtest5, labels=class_names).round(2)*100))
         
 
-        max_iter_nn_sim = list(range(10000, 12001))
+        max_iter_nn_sim = list(range(10000, 12000))
         param_grid5 = dict(max_iter=max_iter_nn_sim)
         mlp = MLPClassifier(random_state=0)
         search_mlp = RandomizedSearchCV(estimator=mlp, param_distributions=param_grid5, cv = 5, n_jobs=-1)
