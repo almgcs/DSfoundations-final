@@ -1118,7 +1118,7 @@ with tab3:
             st.write("The recall score is {}%.".format(recall_score(Y_test_nn, Y_predtest5, labels=class_names).round(2)*100))
         
 
-        max_iter_nn_sim = list(range(10000, 12000, value=10741))
+        max_iter_nn_sim = list(range(10000, 12001))
         param_grid5 = dict(max_iter=max_iter_nn_sim)
         mlp = MLPClassifier(random_state=0)
         search_mlp = RandomizedSearchCV(estimator=mlp, param_distributions=param_grid5, cv = 5, n_jobs=-1)
